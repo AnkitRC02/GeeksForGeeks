@@ -7,32 +7,19 @@
 class Solution:
     def merge(self, root1, root2):
         # code here
-        def bst1(root1):
-            if root1 is None:
+        l=[]
+        def tree(root,l):
+            if root is None:
                 return 
-            array.append(root1.data)
-            if root1.left:
-                bst1(root1.left)
-            if root1.right:
-                bst1(root1.right)
+            l.append(root.data)
+            tree(root.left,l)
+            tree(root.right,l)
+        tree(root1,l)
+        tree(root2,l)
+        l.sort()
+        return l
         
-        def bst2(root2):
-            if root2 is None:
-                return 
-            array.append(root2.data)
-            if root2.left:
-                bst1(root2.left)
-            if root2.right:
-                bst1(root2.right)
-
-
-        array=[]
-        bst1(root1)
-        bst2(root2)
         
-        return sorted(array)
-
-
 
 #{ 
  # Driver Code Starts.
