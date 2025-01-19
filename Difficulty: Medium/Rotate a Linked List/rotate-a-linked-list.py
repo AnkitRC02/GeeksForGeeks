@@ -11,27 +11,27 @@ class Node:
 
 
 class Solution:
-
+    
+    #Function to rotate a linked list.
     def rotate(self, head, k):
-        temp=head
-        list=[]
-        while temp is not None:
-            list.append(temp.data)
-            temp=temp.next
-        list1=[]
-        for i in range(k,len(list)):
-            list1.append(list[i])
-        list1.extend(list)
-        new_k=len(list)
-        new_list=Node(list1[0])
-        head1=new_list
-        j=0
-        while j<new_k:
-            new_list.next=Node(list1[j])
-            new_list=new_list.next
-            j+=1
-        return head1.next
-
+        # code here
+        if k == 0:
+            return head
+        curr = head
+        l = 1
+        while curr.next is not None:
+            curr = curr.next
+            l += 1
+        k %= l
+        if k == 0:
+            return head
+        curr.next = head
+        curr = head
+        for _ in range(1, k):
+            curr = curr.next
+        head = curr.next
+        curr.next = None
+        return head
 
 
 #{ 
@@ -81,6 +81,7 @@ if __name__ == "__main__":
         idx += 2
         head = Solution().rotate(head, k)
         printList(head)
+        print("~")
         t -= 1
 
 # } Driver Code Ends
