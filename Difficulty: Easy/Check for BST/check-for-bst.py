@@ -3,21 +3,19 @@
 
 class Solution:
     def isBST(self, root):
-        def inorder(node, last_visited):
-            if not node:
+        #code here
+        self.prev = float('-inf')
+        def fun(root):
+            if root == None:
                 return True
-            
-            if not inorder(node.left, last_visited):
+            if fun(root.left) == False:
                 return False
-            
-            if last_visited[0] is not None and node.data <= last_visited[0].data:
+            if root.data <= self.prev:
                 return False
-            
-            last_visited[0] = node
-            
-            return inorder(node.right, last_visited)
+            self.prev = root.data
+            return fun(root.right)
         
-        return inorder(root, [None])
+        return fun(root)
 
 
 
@@ -104,5 +102,6 @@ if __name__ == "__main__":
             print("true")
         else:
             print("false")
+        print("~")
 
 # } Driver Code Ends
