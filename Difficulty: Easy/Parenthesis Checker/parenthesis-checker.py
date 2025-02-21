@@ -1,21 +1,20 @@
-#User function Template for python3
 
 class Solution:
-    
-    #Function to check if brackets are balanced or not.
-    def ispar(self,x):
+    def isBalanced(self, s):
         # code here
-        stack=[]
-        bracket_map={'(':')', '{':'}', '[':']'}
-        for char in x:
-            if char in bracket_map:
-                stack.append(char)
-            else:
-                if not stack or bracket_map[stack.pop()]!=char:
+        h={')':'(','}':'{',']':'['}
+        stk=[]
+        for i in s:
+            if i not in h:
+                stk.append(i)
+            else :
+                if not stk:
                     return False
-        return not stack
-
-
+                else:
+                    popped=stk.pop()
+                    if popped!=h[i]:
+                        return False
+        return not stk
 
 
 #{ 
@@ -42,14 +41,12 @@ def write():
 if __name__ == '__main__':
     test_cases = int(input())
     for cases in range(test_cases):
-        #n = int(input())
-        #n,k = map(int,imput().strip().split())
-        #a = list(map(int,input().strip().split()))
         s = str(input())
         obj = Solution()
-        if obj.ispar(s):
-            print("balanced")
+        if obj.isBalanced(s):
+            print("true")
         else:
-            print("not balanced")
+            print("false")
+        print("~")
 
 # } Driver Code Ends
