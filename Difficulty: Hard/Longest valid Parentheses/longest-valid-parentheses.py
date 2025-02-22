@@ -1,22 +1,30 @@
-# User function Template for Python3
 
 class Solution:
-    def maxLength(self, s):
+    def maxLength(self, str):
         # code here
-        stack = [-1]
-        max_len = 0
-
-        for i in range(len(s)):
-            if s[i] == "(":
-                stack.append(i)
+        "((())()"
+        open, close, ans = 0, 0, 0
+        for e in str:
+            if e == '(':
+                open += 1
             else:
-                stack.pop()
-                if len(stack) == 0:
-                    stack.append(i)
-                else:
-                    max_len = max(max_len, i - stack[-1])
+                close += 1
+            if open < close:
+                open, close = 0, 0
+            if open == close:
+                ans = max(ans, open+close)
         
-        return max_len
+        open, close = 0, 0
+        for e in str[::-1]:
+            if e == '(':
+                open += 1
+            else:
+                close += 1
+            if open > close:
+                open, close = 0, 0
+            if open == close:
+                ans = max(ans, open+close)
+        return ans
 
 
 #{ 
@@ -30,5 +38,6 @@ if __name__ == '__main__':
 
         ob = Solution()
         print(ob.maxLength(S))
+        print("~")
 
 # } Driver Code Ends
