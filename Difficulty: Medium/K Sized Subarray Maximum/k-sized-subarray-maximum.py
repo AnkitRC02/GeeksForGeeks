@@ -1,28 +1,19 @@
-#User function Template for python3
-
 class Solution:
-    
-    #Function to find maximum of each subarray of size k.
-    def max_of_subarrays(self,k,arr):
-        n = len(arr)
-        output = []
-        maxele = max(arr[:k])  # Maximum of the first window
-        output.append(maxele)
+    def maxOfSubarrays(self, arr, k):
+        # code here
+
+        from collections import deque
+        q, ans = deque(), []
         
-        # Traverse the array starting from the next window
-        for i in range(1, n - k + 1):
-            # Check if the outgoing element was the maximum
-            if arr[i - 1] == maxele:
-                # Find the new maximum in the current window
-                maxele = max(arr[i:i + k])
-            else:
-                # Compare the new element entering the window with the current maximum
-                maxele = max(maxele, arr[i + k - 1])
-            output.append(maxele)
-        
-        return output
-        
-        #code here
+        for i, e in enumerate(arr):
+            while q and i-q[0]+1 > k:
+                q.popleft()
+            while q and arr[q[-1]] <= e:
+                q.pop()
+            q.append(i)
+            if i >= k-1:
+                ans.append(arr[q[0]])
+        return ans
 
 
 #{ 
@@ -50,12 +41,12 @@ def write():
 if __name__ == '__main__':
     test_cases = int(input())
     for cases in range(test_cases):
-        k = int(input())
         arr = list(map(int, input().strip().split()))
+        k = int(input())
         ob = Solution()
-        res = ob.max_of_subarrays(k, arr)
+        res = ob.maxOfSubarrays(arr, k)
         for i in range(len(res)):
             print(res[i], end=" ")
         print()
-
+        print("~")
 # } Driver Code Ends
